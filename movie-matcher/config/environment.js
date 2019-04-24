@@ -1,3 +1,4 @@
+console.log('working')
 module.exports = {
   port: process.env.PORT || 4000,
   db: {
