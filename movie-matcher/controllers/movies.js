@@ -1,14 +1,14 @@
+
 const Movie = require('../models/movie')
 
-function indexMovie(res, req){
-  console.log('working')
+function indexMovie(req, res){
   Movie
     .find(req.query)
-    .populate(movies => res.status(200).json(movies))
+    .then(movies => res.json(movies))
     .catch(err => res.json(err))
 }
 
-function showMovie(res, req){
+function showMovie(req, res){
   Movie
     .findById(req.params.id)
     .then(movie => res.status(200).json(movie))
@@ -19,9 +19,11 @@ function createMovie(req, res){
   Movie
     .create(req.body)
     .then(movies => res.status(201).json(movies))
+    .catch(err => res.json(err))
+
 }
 
-function editMovie(req, res, next){
+function editMovie(req, res){
   Movie
     .findById(req.params.id)
     .then(movie => {
@@ -32,7 +34,7 @@ function editMovie(req, res, next){
       return movie.save()
     })
     .then(() => res.sendStatus(202))
-    .catch(next)
+    .catch(err => res.json(err))
 }
 
 function deleteMovie(req, res){
@@ -54,7 +56,7 @@ function commentCreate(req, res){
     .catch(err => res.json(err))
 }
 
-function commentDelete(req, res, next){
+function commentDelete(req, res){
   Movie
     .findById(req.params.id)
     .then(movie => {
@@ -68,14 +70,15 @@ function commentDelete(req, res, next){
       return movie.save()
     })
     .then(movie => res.json(movie))
-    .catch(next)
+    .catch(err => res.json(err))
 }
+
 module.exports = {
   index: indexMovie,
   show: showMovie,
   create: createMovie,
   update: editMovie,
-  break: deleteMovie,
+  delete: deleteMovie,
   commentCreate,
   commentDelete
 }

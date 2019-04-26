@@ -1,6 +1,6 @@
 const mongoose = require('mongoose')
 const validate = require('mongoose-validator')
-const bcrypt = require('bycrypt')
+const bcrypt = require('bcrypt')
 
 const userSchema = new mongoose.Schema({
   username: {

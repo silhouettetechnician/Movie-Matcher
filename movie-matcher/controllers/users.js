@@ -5,7 +5,7 @@ function indexUser(req, res, next){
     .find()
     .populate('movie matcher user')
     .then(users => res.status(200).json(users))
-    .catch(next)
+    .catch(err => console.log(err))
 }
 
 function showUser(req, res, next){
@@ -13,7 +13,7 @@ function showUser(req, res, next){
     .findById(req.params.id)
     .populate('movie matcher user')
     .then(user => res.status(200).json(user))
-    .catch(next)
+    .catch(err => console.log(err))
 }
 
 module.exports = {

@@ -1,9 +1,9 @@
-const User = require('..models/user')
+const User = require('../models/user')
 
 const jwt = require('jsonwebtoken')
-const { secret } = require('..config/environment')
+const { secret } = require('../config/environment')
 
-function register(req, res, next){
+function register(req, res){
   User
     .create(req.body)
     .then(user =>{
@@ -15,7 +15,7 @@ function register(req, res, next){
         user
       })
     })
-    .catch(next)
+    .catch(err => res.json(err))
 }
 
 function login(req, res){
